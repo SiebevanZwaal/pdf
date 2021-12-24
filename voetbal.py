@@ -1,6 +1,6 @@
 class Random_fib:
     """
-    class that generates random numbers
+        class that generates random numbers
     """
     def __init__(self,amount_of_fib):
         self.current = 20
@@ -9,17 +9,29 @@ class Random_fib:
             self.fib_rng()
 
     def fib_rng(self,j=2,k=5):
+        """
+            appends random number to self.l
+        """
         self.l.append((self.l[-j]+self.l[-k])%2**8)
 
     def random(self,max_fib = 1):
+        """
+            return random number between 0 and max_fib ( = 1)
+        """
         self.current +=1
         return  (max_fib/255) * self.l[self.current]
 
 class Season:
+    """
+        class that lets a competition be played
+    """
     def __init__(self):
         self.teams = []
 
     def add_teams(self,names,winning_chances):
+        """
+            add teams to this season
+        """
         self.teams = names
         self.team_dict = {}
         for team in self.teams:
@@ -28,12 +40,15 @@ class Season:
         self.winning_chances = winning_chances
 
     def start_season(self,fib):
+        """
+            starts the season
+        """
         for team in self.teams:
             self.team_dict[team] = 0
         for row_i in range(len(self.winning_chances)):
             for i in range(len(self.winning_chances[0])):
                 if row_i != i:
-                    # print(self.teams[row_i]," is playing at home vs ", self.teams[i])
+                    #new random number to calculate a score with
                     r = fib.random()
                     if r > self.winning_chances[row_i][i][0]:
                         if r >= self.winning_chances[row_i][i][0]+self.winning_chances[row_i][i][1]:
@@ -49,8 +64,6 @@ class Season:
 
     def scores(self):
         return [i[0] for i in sorted(self.team_dict.items(), key= lambda key_value: (key_value[1], key_value[0]),reverse=True)]
-
-        # return self.team_dict
 
 def main():
     sim_len = 10000
@@ -80,12 +93,12 @@ def main():
     willen_ii = []
 
 
-    for places in chances:
-        ajax.append(places.count("Ajax")/len(places))
-        feyenoord.append(places.count("Feyenoord")/len(places))
-        psv.append(places.count("PSV")/len(places))
-        fc_utrecht.append(places.count("FC Utrecht")/len(places))
-        willen_ii.append(places.count("Willem II")/len(places))
+    for placings in chances:
+        ajax.append(placings.count("Ajax")/len(placings))
+        feyenoord.append(placings.count("Feyenoord")/len(placings))
+        psv.append(placings.count("PSV")/len(placings))
+        fc_utrecht.append(placings.count("FC Utrecht")/len(placings))
+        willen_ii.append(placings.count("Willem II")/len(placings))
 
     print("                                          1e  2e  3e  4e  5e")
     print("Ajax win kansen zijn als volgt:      \t",[round(i*100) for i in ajax])
